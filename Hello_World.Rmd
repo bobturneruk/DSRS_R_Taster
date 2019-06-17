@@ -1,0 +1,11 @@
+---
+title: "Hello World!"
+output: html_notebook
+---
+
+The code in the box below is exeuted by pressing the little play button on the right - it will output "Hello World!".
+
+```{r}
+head("Hello World!")
+```
+

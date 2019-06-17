@@ -1,0 +1,28 @@
+---
+title: "Generate Data for Excersises"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(magrittr)
+```
+
+
+You don't need to look at this! It simulates experimental data that we can practise with!
+
+# Excersise 1
+
+```{r}
+mean_control=15000
+mean_treated=12000
+sd_both=1000
+
+cell_treatment_data<-data.frame(Group=c(rep("Control",3),rep("Treated",3)),
+                                Metabolic_Activity=c(rnorm(3,mean_control,sd_both),rnorm(3,mean_treated,sd_both)))
+
+cell_treatment_data %<>% transmute(Metabolic_Activity=round(Metabolic_Activity))
+
+write_csv(cell_treatment_data,"cell_treatment_data.csv")
+```
+
