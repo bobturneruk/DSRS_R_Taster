@@ -1,0 +1,36 @@
+---
+title: "Exercise 1 - Chart and T-Test"
+output: html_notebook
+---
+
+# Introduction
+
+# Libraries
+
+```{r}
+library(tidyverse)
+```
+
+# Import data
+
+```{r}
+cell_treatment_data<-read_csv("cell_treatment_data.csv")
+```
+
+# Plot data
+
+```{r}
+cell_treatment_data %>%
+  ggplot(aes(x=Group,y=Metabolic_Activity))+
+  stat_summary(fun.data="mean_se",colour="Blue")+
+  geom_point()
+  
+```
+
+# T-Test
+
+```{r}
+cell_treatment_data %>%
+  t.test(Metabolic_Activity~Group,data=.)
+```
+

@@ -1,5 +1,5 @@
 ---
-title: "Generate Data for Excersises"
+title: "Generate Data for Exercises"
 output: html_notebook
 ---
 
@@ -9,19 +9,21 @@ library(magrittr)
 ```
 
 
-You don't need to look at this! It simulates experimental data that we can practise with!
+You don't need to look at this! It simulates experimental data that we can practice with!
 
-# Excersise 1
+# Exercise 1
 
 ```{r}
+set.seed(1)
 mean_control=15000
 mean_treated=12000
 sd_both=1000
+n_measurements=3
 
-cell_treatment_data<-data.frame(Group=c(rep("Control",3),rep("Treated",3)),
-                                Metabolic_Activity=c(rnorm(3,mean_control,sd_both),rnorm(3,mean_treated,sd_both)))
+cell_treatment_data<-data.frame(Group=c(rep("Control",n_measurements),rep("Treated",n_measurements)),
+                                Metabolic_Activity=c(rnorm(n_measurements,mean_control,sd_both),rnorm(n_measurements,mean_treated,sd_both)))
 
-cell_treatment_data %<>% transmute(Metabolic_Activity=round(Metabolic_Activity))
+cell_treatment_data %<>% mutate(Metabolic_Activity=round(Metabolic_Activity))
 
 write_csv(cell_treatment_data,"cell_treatment_data.csv")
 ```
