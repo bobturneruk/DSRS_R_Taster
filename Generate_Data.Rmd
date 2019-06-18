@@ -20,7 +20,7 @@ mean_treated=12000
 sd_both=1000
 n_measurements=3
 
-cell_treatment_data<-data.frame(Group=c(rep("Control",n_measurements),rep("Treated",n_measurements)),
+cell_treatment_data<-data.frame(Treatment=c(rep("Control",n_measurements),rep("Treated",n_measurements)),
                                 Metabolic_Activity=c(rnorm(n_measurements,mean_control,sd_both),rnorm(n_measurements,mean_treated,sd_both)))
 
 cell_treatment_data %<>% mutate(Metabolic_Activity=round(Metabolic_Activity))

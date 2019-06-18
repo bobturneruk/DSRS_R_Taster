@@ -5,32 +5,73 @@ output: html_notebook
 
 # Introduction
 
+In this excercise we will load some example data, plot it on screean and then do a T-Test.
+
 # Libraries
 
+Libraries are the packages of code (written by other people) that we will tell the computer to execute in order to get our jobs done.
+
 ```{r}
+#install.packages("tidyverse")
 library(tidyverse)
 ```
 
 # Import data
 
+Our data is in the file "cell_treatment_data.csv". You can open this up in a spreadsheet, like Excel or Google Sheets, to have a look at it. Put a copy of the file in your R project folder.
+
 ```{r}
 cell_treatment_data<-read_csv("cell_treatment_data.csv")
 ```
 
+R (in this case using the *readr* package) has brought our data into the *Environment* - top right of the screen - as a *variable*. It has made a good guess at what sort of information is in each column.
+
+# View data
+
+The next command shows our data on screen.
+
+```{r}
+head(cell_treatment_data)
+```
+
+You can also double-click on the *cell_treatment_data* variable in the *Environment* to bring it up as a tab.
+
+# Filter data
+
+Now, just for the excercise, we're going to look at a subset of the data. We take our *cell_treatment_data* variable and use the *magrittr* function *%>%* to send it through a filter that seperates out the control data.
+
+```{r}
+cell_treatment_data %>% filter(Treatment=="Control")
+```
+
+# Calculations
+
+Having got our data loaded and looked at it, we might now want to do some calculations to summarise it. We'll use the *%>%* to send the *cell_treatment_data* variable through a couple of processes. The first is to use the "Treatment" column to split the data into groups on which we then perform summary calculations using *summarise*.
+
+```{r}
+cell_treatment_data %>% 
+  group_by(Treatment) %>%
+  summarise(Maximum_Activity=max(Metabolic_Activity),Minimum_Activity=min(Metabolic_Activity))
+
+```
+
 # Plot data
+
+Now we visualise using *ggplot*. Here, we specify which column goes on which axis, then we state what kind of chart we want. *stat_summary* is a type of chart that shows summary information (in this case mean and standard error), rather than plotting every single point.
 
 ```{r}
 cell_treatment_data %>%
-  ggplot(aes(x=Group,y=Metabolic_Activity))+
-  stat_summary(fun.data="mean_se",colour="Blue")+
-  geom_point()
-  
+  ggplot(aes(x=Treatment,y=Metabolic_Activity))+
+  stat_summary()
 ```
 
 # T-Test
 
+Finally we'll test the hypothesis that our groups have different means using a *T-Test*.
+
 ```{r}
 cell_treatment_data %>%
-  t.test(Metabolic_Activity~Group,data=.)
+  t.test(Metabolic_Activity~Treatment,data=.)
 ```
 
+Generally, folks are interested in whether the p-value is below a significance threshold. However, R tells us some other potentially useful stuff, not least a 95% confidence bracket on the difference in means letting us say "We're pretty sure the difference between the control and the treated groups is between x and y.".

@@ -8,6 +8,8 @@ date: June 2019
 
 ![Say R](Say_R.PNG)
 
+Who's done some coding?
+========================================================
 
 What the flip is R?
 ========================================================
@@ -24,6 +26,7 @@ Libraries (CRAN):
 - Charts
 - Statistics
 - Machine Learning / AI
+- Lots of online examples
 
 But really, why is R actually important?
 ========================================================
@@ -62,16 +65,24 @@ Online Tools
 - Tableau
 - Google Data Studio
 
-Why 
+What we're doing next...
 ========================================================
 
-```{r}
-summary(cars)
-```
+Exercise 1
+- Reading data
+- Plotting charts
+- Statistical tests
 
-Slide With Plot
+***
+
+Exercise 2
+- Linear regression
+
+T-Test
 ========================================================
 
-```{r, echo=FALSE}
-plot(cars)
-```
+![William Sealy Gosset.jpg](William_Sealy_Gosset.jpg)
+
+***
+
+William Sealy Gosset : Total hipster and inventor of the T-Test under the pseudonym "Student".

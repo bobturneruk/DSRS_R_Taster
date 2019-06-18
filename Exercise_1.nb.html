@@ -1769,66 +1769,129 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
+<p>In this excercise we will load some example data, plot it on screean and then do a T-Test.</p>
 </div>
 <div id="libraries" class="section level1">
 <h1>Libraries</h1>
+<p>Libraries are the packages of code (written by other people) that we will tell the computer to execute in order to get our jobs done.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2luc3RhbGwucGFja2FnZXMoXCJ0aWR5dmVyc2VcIilcbmxpYnJhcnkodGlkeXZlcnNlKVxuYGBgIn0= -->
+<pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
+library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="import-data" class="section level1">
 <h1>Import data</h1>
+<p>Our data is in the file “cell_treatment_data.csv”. You can open this up in a spreadsheet, like Excel or Google Sheets, to have a look at it. Put a copy of the file in your R project folder.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YTwtcmVhZF9jc3YoXCJjZWxsX3RyZWF0bWVudF9kYXRhLmNzdlwiKVxuYGBgIn0= -->
 <pre class="r"><code>cell_treatment_data&lt;-read_csv(&quot;cell_treatment_data.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBHcm91cCA9IFx1MDAxYlszMW1jb2xfY2hhcmFjdGVyKClcdTAwMWJbMzltLFxuICBNZXRhYm9saWNfQWN0aXZpdHkgPSBcdTAwMWJbMzJtY29sX2RvdWJsZSgpXHUwMDFiWzM5bVxuKVxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBUcmVhdG1lbnQgPSBcdTAwMWJbMzFtY29sX2NoYXJhY3RlcigpXHUwMDFiWzM5bSxcbiAgTWV0YWJvbGljX0FjdGl2aXR5ID0gXHUwMDFiWzMybWNvbF9kb3VibGUoKVx1MDAxYlszOW1cbilcbiJ9 -->
 <pre><code>Parsed with column specification:
 cols(
-  Group = [31mcol_character()[39m,
+  Treatment = [31mcol_character()[39m,
   Metabolic_Activity = [32mcol_double()[39m
 )</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>R (in this case using the <em>readr</em> package) has brought our data into the <em>Environment</em> - top right of the screen - as a <em>variable</em>. It has made a good guess at what sort of information is in each column.</p>
 </div>
-<div id="plot-data" class="section level1">
-<h1>Plot data</h1>
+<div id="view-data" class="section level1">
+<h1>View data</h1>
+<p>The next command shows our data on screen.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiVcbiAgZ2dwbG90KGFlcyh4PUdyb3VwLHk9TWV0YWJvbGljX0FjdGl2aXR5KSkrXG4gIHN0YXRfc3VtbWFyeShmdW4uZGF0YT1cIm1lYW5fc2VcIixjb2xvdXI9XCJCbHVlXCIpK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>cell_treatment_data %&gt;%
-  ggplot(aes(x=Group,y=Metabolic_Activity))+
-  stat_summary(fun.data=&quot;mean_se&quot;,colour=&quot;Blue&quot;)+
-  geom_point()</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChjZWxsX3RyZWF0bWVudF9kYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>head(cell_treatment_data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAGwCAMAAAB8TkaXAAAAxlBMVEUAAAAAADoAAGYAAP8AOpAAZrYzMzM6AAA6ADo6AGY6kNtNTU1NTW5NTY5Nbo5NbqtNjshmAABmADpmAGZmtrZmtv9uTU1uTW5uTY5ubo5ubqtuq+SOTU2OTW6OTY6Obk2OyP+QOgCQkDqQkGaQ2/+rbk2rbm6rbo6rjk2ryKur5OSr5P+2ZgC2Zma2///Ijk3I5KvI///bkDrb/7bb///kq27k///r6+v/tmb/trb/yI7/25D/5Kv//7b//8j//9v//+T///8Jy8ANAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAQBElEQVR4nO3dD3fTyBWGcbEhsItCQ9qGzZIATku2pUnJOsVpaoxjff8vVUl2/vha9mq8cDWv5vmdswhCDmd050GrKCbJCkBU1vUCgG0RL2QRL2QRL2QRL2QRL2R9i3j/q0Nprd50ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGaTZrxZlnW9hHjp7GOS8WYZ9a6ns4/EC0NnH4kXhs4+Jhkv97yb6OxjmvEKbZA/ndkQLwyd2RAvDJ3ZEC8MndkQLwyd2RAvDJ3ZEC8MndkQLwyd2RAvDJ3ZEC8Mndm0indyNCyKUZ7nL4fF9CTfvy7MgXh7RGc2beIdV9EWl4Pq57OzQTF6ZQ7E2yc6s2kR7+Xex/LKO/v1vPrF9N2wuhAvH4i3T3Rm0/q2obxByPNBMXlzXUzfni8fynd5Vtr0RwDfze/GO/n5vLr6jvfrXJcPi3fr+i9iAKW1etOZTet4a5eDdVde4u0NndmExss9b+/pzKZ1vNUdwuwfw9nZ8fwxw+MD8faJzmzaX3lHeb53bh/w8py3f3Rm0yrelro+lwBKa/WmMxvihaEzG+KFoTMb4oWhM5tE493pegER09lH4oWhs4/EC0NnH4kXhs4+Ei8MnX0kXhg6+0i8MHT2kXhh6Owj8cLQ2UfihaGzj8QLQ2cfiReGzj4SLwydfSReGDr7SLwwdPaReGHo7CPxwtDZR+KFobOPxAtDZx+JF4bOPhIvDJ19JF4YOvtIvDB09jHNeHeIdz2dfUwx3p1a16uIlsw+Ei8smX1MMd6dHerdRGUfiRcrVPYxyXi5bdhMZh+JF5bMPiYZL4/KNtLZxzTj5ZMUG+jsI/HC0NnHbxmvkJ2uF4BviCsvFnT2kXhh6Owj8cLQ2UfihaGzj8QLQ2cfiReGzj4SLwydfSReGDr7mGa8WZZ1vYR46exjkvFmGfWup7OPxAtDZx+JF4bOPiYZL/e8m+jsY5rx8rRhA519JF4YOvtIvDB09pF4YejsI/HC0NlH4oWhs4+Jxqu0Vm86syFeGDqzIV4YOrMhXhg6syFeGDqzIV4YOrMhXhg6s0kzXl5VtoHOPiYZL6/n3URnH4kXhs4+Ei8MnX1MMl7ueTfR2cc04xXaIH86syFeGDqzIV4YOrMhXhg6syFeGDqzIV4YOrMhXhg6syFeGDqzaRXv5GhYHWZng6KYnuT71/ZAvD2iM5s28Y7zl3W8o3xQBzx6ZQ7E2yc6s2kR7+Xex/rKO/nl/aCYvhtWF+LlA/H2ic5s2t82zH79V3mdnby5LqZvz5cP5bs8K236I4Dv5vfjHR1XNwnj/TrX5cPi3br+ixhAaa3edGbTOt7yIjvbcOUl3t7QmU3reEd55Zh73t7TmU3724b5o7LZ2fH8McPjA/H2ic5sQuPlOW/v6cymVbwtdX0uAZTW6k1nNsQLQ2c2xAtDZzbEC0NnNsQLQ2c2xAtDZzZN8X49ePKBeJOlM5umeIviIsuefibeNOnMpjne6uqbZS+IN0U6s1kX7zzfHz4Rb3J0ZrMu3qss2y1vH4JuHro+lwBKa/WmM5vGeG9Ps+yw+slN0KW363MJoLRWbzqzaYr360HY7QLx9orObJrj3eKyS7x9oTMb4oWhM5vVeK+yO7th7eqctNIG+dOZzYYrb7CuzyWA0lq96cymKd5tdX0uAZTW6k1nNivxlpfd6tMTFe55k6QzG668MHRmQ7wwdGbTFO/Xg9CX5BBvj+jMpine+mnZFg8cuj6XAEpr9aYzm8Z4i/oVvcGvSO/6XAIordWbzmzWxVv1y9OGJOnMZl28F+FPynROWmmD/OnMpjHebe4ZiLcvdGbTFC+fHk6Z0DcVb4p3W12fSwCltfqqP7fa9SJaWomXTw+nTTperrxpU4+XF6OnTKdd4oWlM5vVePmXFInTmc2GK2+wrs8lgNJavenMpinebXV9LgGU1upNZzaN8d6evij/C71r0DlppQ3ypzObxngvduuCg+sFusDTBizozIZ4YejMpine4qrKNvwfA3V9LgGU1upNZzaN8RY31WPe4H/I1vW5BFBaqzed2TTHu52uzyWA0lq96cxmU7z/5p43RTqzWRvv1wNeEpkmndmsiXerf/ze9bkEUFqrN53ZNMVbvxh9i89QdH0uAZTW6k1nNqvxXtX/+vKCeFOlM5uVeBefoSDeZOnMZvXKe1Pf7hJvsnRmsxrv/DtZcc+bLJ3ZNMVb3F1+iTdFOrNZE299+eU5b5J0ZrM23tL/Pn39C98BMzk6s9kUb1EQb4J0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGZDvDB0ZrM53jBdn0sApbV605lNY7x8xZyU6cymMd4tv2JO1+cSQGmt3nRm0xQvX3QkaTqzIV4YOrNpipevmJM0ndk0xstXzEmZzmya491O1+cSQGmt3nRmQ7wwdGazEi/fRDB1OrPhygtDZzbEC0NnNivx3t0zcNuQKp3ZcOWFsdP1AlojXhjq8V7xSYp0icdrPz08ORoWxTjPX5aH6Um+f20PxNsj2vHaF+aMq2qrgEevitnZYPVAvH3Sq3gv9z5WV975FXj6brh6IN4+0Y63+bahVF5kJ2+ui+nb8+VD+VvPSo03wlCz0/UCgm38gG0e7+T13nkx3q9zXT4s3q3rv4gBlNbqTfzKa91deVcuuQ9XXuLtjZ7GW1wOuOftPfV46xejP3xx6arPxR3C7Ox4/pjh8YF4+0Q83sYP2EZ5Xt7z8py397Tj5R9gJo14I6e0Vm/a8c6zXSRMvKkRjpfX86ZOON4/oOtzCaC0Vm/EGzmltXoTj/fLc24b0qUd7+3pi9vTQz5gS5R2vFW2Fy+Km6efiTdB+vFe7fKcN1Ha8VZfXLos94orb5LE462+rP9F9uRDWLtKQSit1Zt4vFvq+lwCKK3Vm3a8vLYhacQbOaW1elOO9+r+tQ18N6AkKce7zevJiLdHtOPdVtfnEkBprd7U4y1vHQ6DH/MqBaG0Vm/i8V48/c/BId8BM1Ha8dbfluKQpw2JIt7IKa3Vm3a8xVV128B3wEyUeLx8B8yUqce7na7PJYDSWr0Rb+SU1uqNeCOntFZvxBs5pbV6E4739pQvOpI24XirJw3bvS5HKQiltXpTjrd0sV2/XZ9LAKW1ehOPd37zENxv1+cSQGmt3uTjrfvlnjdJ8vGWV97gfzysFITSWr1px7tVucTbF8rx3mxXLvH2hXC8POdNnXC8SJ36t2/dTtd/EQMordVbmlfers8lgNJavRFv5JTW6o14I6e0Vm/EGzmltXoj3sgprdUb8UZOaa3Odog3ckprdbVT63oVLREvHiPe+Cmt1dPOjlK9xItHiFeA0lpdKbVLvFiys5NlGfFGTWmtvuoXw3a9iJaIF0uIN3pKa/VFvNFTWqsznXaJF5bKh2vEixXEGzmltXoj3sgprdUb8UZOaa3eiDdySmv1RryRU1qrN+KNnNJavRFv5JTW6o14I6e0Vm/EGzmltXoj3sgprdUb8UZOaa3eiDdySmv1RryRU1qrN+KNnNJavRFv5JTW6o14I6e0Vm/EGzmltXoj3sgprdUb8UZOaa3eiDdySmv11rN4J0fD8ofXeT4oiulJvn9tD8TbI/2Kd5y/HBbTt+fF5Ofz2dmgGL0qlg/E2ye9ivdy72N55R1XjV4Opu+G1YV4+UC8fdKreIv7Psur7+TN9eqh/K1npU1/BGT07Nu3LuKdnR0X4/061+XD4t26/osYQGmt3np55Z2eHJc/XXPlJd7e6GO8k9eDqmDuefuuh/HO261vHerHDI8PxNsnPYx3lFcGPOftvZ7F21LX5xJAaa3eiDdySmv1RryRU1qrN+KNnNJavRFv5JTW6o14I6e0Vm/EGzmltXoj3sgprdUb8UZOaa3eiDdySmv1RryRU1qrN+KNnNJavRFv5JTW6o14I6e0Vm/EGzmltXoj3sgprdUb8UZOaa3eiDdySmv1RryRU1qrN+KNnNJavRFv5JTW6o14I6e0Vm/EGzmltXrTmQ3xwtCZDfHC0JkN8cLQmQ3xwtCZDfHC0JkN8cLQmQ3xwtCZDfHC0JkN8cLQmQ3xwtCZDfHC0JkN8cLQmQ3xwtCZDfHC0JnNt4wX6ARXXizozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4YejMhnhh6MyGeGHozIZ4sSzLsq6X0BbxYkmW6dRLvFhCvNFTWqsv4o2e0lqd6bRLvLB0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGZDvDB0ZkO8MHRmQ7wwdGbTKt7J0fD+MD3J96/tgXh7RGc2beId5y+Hd4fZ2aAYvTIH4u0Tndm0iPdy72N1yZ0fpu+G1RV4+UC8faIzm9Dbhsmb62L69nz5UP7es9KmPwL4btrGO96vc10+LN6t67+IAZTW6k1nNqHxrrvyiuH/EuvpzaZtvJvueYXobZAfvdm0jXd2djx/zPD4oEdvg/zozeZbPOcVordBfvRm8y0+wwZ0gnghi3ghi3ghi3ghq9fxjvN89aHI8vNpyafVf9TsLM+bRmPHUb3+KmZ9jndUvSju0m4R8VbWnDfxRmL++etqA6Yn1as6J2/+meeD6ue//fL+5XDxxpTjnTzMoZi8Xgzn7g3l4U/vibcj4/tr7uVx9YvJ6/nhaDh5Pbh/Y9LxLuYwelX/Ta8mU755/oZ6PjnxdmR89/nr6pUY1auJjoaL/bl7scbijSmax3tUz6CeRVHPqXrdyvwN1du4behM9dK3+U+q12b8auJ99MYUPcR7Un7otlfeYF3m5d1CFe/8DfU7XBJvR+7vebnyrnqId3HVPRkshvNwGebK26H7pw0Pt7cP8XLPu/jh0XB+Pl/c844XQ+Oetzt3z3kfHiyU/83OXv62eJlc8k8bFnOo7hpGefVwoRzOcPGG2RlPG4DvhXghi3ghi3ghi3ghi3ghi3ghi3j9XFXfp++w61X0CPF6uT394VNR3GQvul5IfxCvl5uq3fLy+/Rz1yvpDeJ1cnt6f8n98tPfsh8+3Z5m2W75ix8/1D98+fHvWUbYQYjXydeD+7vdL893q5h36//u431e9bzb5RLlEK+TeaTPs+xJ2enh4i6i/OEh3sPFO6Et4nVyd+Wt7xDKRG+qW4S7X9wdH12e8fuI18ndPS/xfjvE6+Vq/rThPt4nHxpuG3761PUylRCvm4v5c96nn+te7z5g+3rwojw+4QO2LRCvn5vFZ9jmH5YtHpXVH8T99c/zR2W0G4R4I8GDhnDEGwniDUe8kSDecMQLWcQLWcQLWcQLWcQLWcQLWcQLWf8H3LllMA4WIBgAAAAASUVORK5CYII=" /></p>
-<!-- rnb-plot-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVJTMDdETUJSOGNUNVZMTFVnRU1kb0ZvZ0RGTUdXRFdMUkhYSVRGeXhTdTNKY1Bqc3V3RDBROTBCQ2ZMWWNoa1dEdnhWNEE1YVNlVzg4bW5rdk9UMmU3dU1wQmdBRWFaWUFTbldaSWYxS0lJUFM0QzFBdW1zRkFOdjZLZnpGNEVod0pVWDd2L1pNVXFKbzgwY0xNRElKazNjVENERDVlSFQ0OXVUdzllSGU0c3VlNjU4L3daMWZJK2VjTEdqbngwV2VMRzNHZ25MbGlaMFRxc2hNdEt3K1A2d1Z1MmJxTHZhcFc5SUZuMERpaGloU3phV09pT1NsRkRkVmlCNmFhRE5zMy9kZkd0YVJlQ0NXaWdtdXBjanNta2NwaVl5SXJSVTMxczI0dmx6eHEvR0JtY1JldXpQMGRmR2pSaTRTOWQ0cTkxWUY1UmVNMDdCa1MyWTAvS2FSWHNGdVVDMGwyM3dwck5tdVVrS1JvTU8xYUFOamQ0UDFOejh4MmNKS0FnQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Treatment"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Metabolic_Activity"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Control","2":"14374"},{"1":"Control","2":"15184"},{"1":"Control","2":"14164"},{"1":"Treated","2":"13595"},{"1":"Treated","2":"12330"},{"1":"Treated","2":"11180"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can also double-click on the <em>cell_treatment_data</em> variable in the <em>Environment</em> to bring it up as a tab.</p>
+</div>
+<div id="filter-data" class="section level1">
+<h1>Filter data</h1>
+<p>Now, just for the excercise, we’re going to look at a subset of the data. We take our <em>cell_treatment_data</em> variable and use the <em>magrittr</em> function <em>%&gt;%</em> to send it through a filter that seperates out the control data.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiUgZmlsdGVyKFRyZWF0bWVudD09XCJDb250cm9sXCIpXG5gYGAifQ== -->
+<pre class="r"><code>cell_treatment_data %&gt;% filter(Treatment==&quot;Control&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJuY29sIjoyLCJucm93IjozfSwicmRmIjoiSDRzSUFBQUFBQUFBQm9WUVRVOERJUkNkWFhadFN0TGEyTi9SUFpoNHI5R3JGK09oTjBNcFZTS0ZocDM2Y2ZQbkdQK0srcFBzQ2l3WXkwVVNtT0hObXpjOHJpOFhwM1JCQWFBRVVoVlFFcGRXcFRzS3FHRG80ek1BbVFZQ3dNUnRFZ3VEQzZQUkd2WFBGV0RzbSthZlhnTmcvdlhXeDQ5MzZOZkJ0Sm9yMXJaeFVnTHBpaUZyMXBadFJFWWZXdlBVYUlmN2xwRi81S3M3dXE3N3puVVRhUktjeE80Ykt4aHVoTVlJbkZ3SlpFdWpKTDg5NXlnZkpiNDRkSjlwRGN3V3BkRk9yZlNlNnV5MWhjMkE0NTMyMDFjemZyL1REN016N3lpVSt6V0tPZm1UbC8zSXFvdFNkWlE2RXZwT2FwRk1LYllVNmNQSDdpdUN5V1pyNWE4ajZ0QzJRWU1zOFNnM0tpSEJHK3gvQUd1bFhtVUZBZ0FBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Treatment"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Metabolic_Activity"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Control","2":"14374"},{"1":"Control","2":"15184"},{"1":"Control","2":"14164"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="calculations" class="section level1">
+<h1>Calculations</h1>
+<p>Having got our data loaded and looked at it, we might now want to do some calculations to summarise it. We’ll use the <em>%&gt;%</em> to send the <em>cell_treatment_data</em> variable through a couple of processes. The first is to use the “Treatment” column to split the data into groups on which we then perform summary calculations using <em>summarise</em>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiUgXG4gIGdyb3VwX2J5KFRyZWF0bWVudCkgJT4lXG4gIHN1bW1hcmlzZShNYXhpbXVtX0FjdGl2aXR5PW1heChNZXRhYm9saWNfQWN0aXZpdHkpLE1pbmltdW1fQWN0aXZpdHk9bWluKE1ldGFib2xpY19BY3Rpdml0eSkpXG5gYGAifQ== -->
+<pre class="r"><code>cell_treatment_data %&gt;% 
+  group_by(Treatment) %&gt;%
+  summarise(Maximum_Activity=max(Metabolic_Activity),Minimum_Activity=min(Metabolic_Activity))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Mn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvVlR5MUxDTUJRTmZZaDBoc2ZJZDlDRkM3Zmk2SmFONDRJZEU5SUFHZEtrazZhS08zL0EvM0Q4RHpjNmJ2ME92NENhdEVtQnFFTVdjSE55bitmYzN0NU16Nk5wQkFEd2dCKzBnT2NyTS9EVVR3c0VvS1AvTndENFEyWG9sMEhsV0QrMHJ6bVRnbE43dlJNWVNwd29zNmU5eHA4dlFKL3grL01UcUUrTmY3elcrTnVYZ1EvS2hReW1PRGVsZkFOMnF0d3BadElBZ3duY2tMUklaMWRJa25zaUh4dWNzRVBjeVk0b3pHMTJDMFlKbERCZUNGWFljZThJL2hEYmhycTZlejFLV1paYnh6SElNNHgyUEhuRGlxZjZiaWIwUzRlL0llS1VZaVM1bUtFVkZCQkpMR3pkNWtsZHRrZnlESFo1RWw3TUtmNG5pUTcyM09CZnpKNU5zSVJ6VGduYTQvQm9ELzFkRDhzQ0s0Yi9icUhhZ05ibE45aFR2bW5KaWgyb0lKdWduZUFGTEtoc2FGNlR6R25CU25DcXdtYTFERlVwVjZJMnp5VGhMRGZxaEU1NFN6aEF2MkJhK1dTRVZnVmJqeTcwb2xUUDlla2EyOXV6ZldlaTBLUTZ3V3hKbU5VbHBIQ083VmZUVXh0V0xWaWNDZEtJRUNrMGp5V1gwUHBGbWhTRG1QbCtBRWdRS2FXN0F3QUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Treatment"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Maximum_Activity"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Minimum_Activity"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Control","2":"15184","3":"14164"},{"1":"Treated","2":"13595","3":"11180"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
 <pre class="r"><code>NA</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="t-test" class="section level1">
-<h1>T-Test</h1>
+<div id="plot-data" class="section level1">
+<h1>Plot data</h1>
+<p>Now we visualise using <em>ggplot</em>. Here, we specify which column goes on which axis, then we state what kind of chart we want. <em>stat_summary</em> is a type of chart that shows summary information (in this case mean and standard error), rather than plotting every single point.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiVcbiAgdC50ZXN0KE1ldGFib2xpY19BY3Rpdml0eX5Hcm91cCxkYXRhPS4pXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiVcbiAgZ2dwbG90KGFlcyh4PVRyZWF0bWVudCx5PU1ldGFib2xpY19BY3Rpdml0eSkpK1xuICBzdGF0X3N1bW1hcnkoKVxuYGBgIn0= -->
 <pre class="r"><code>cell_treatment_data %&gt;%
-  t.test(Metabolic_Activity~Group,data=.)</code></pre>
+  ggplot(aes(x=Treatment,y=Metabolic_Activity))+
+  stat_summary()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBNZXRhYm9saWNfQWN0aXZpdHkgYnkgR3JvdXBcbnQgPSAyLjg4ODUsIGRmID0gMi43NjUsIHAtdmFsdWUgPSAwLjA2OTU4XG5hbHRlcm5hdGl2ZSBoeXBvdGhlc2lzOiB0cnVlIGRpZmZlcmVuY2UgaW4gbWVhbnMgaXMgbm90IGVxdWFsIHRvIDBcbjk1IHBlcmNlbnQgY29uZmlkZW5jZSBpbnRlcnZhbDpcbiAtMzQ1LjU2OTMgNDc1Ni45MDI3XG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBpbiBncm91cCBDb250cm9sIG1lYW4gaW4gZ3JvdXAgVHJlYXRlZCBcbiAgICAgICAgICAgICAxNDU3NC4wMCAgICAgICAgICAgICAgMTIzNjguMzMgXG4ifQ== -->
+<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbWzAsIk5vIHN1bW1hcnkgZnVuY3Rpb24gc3VwcGxpZWQsIGRlZmF1bHRpbmcgdG8gYG1lYW5fc2UoKVxuIl1dLCJoZWlnaHQiOjQzMi42MzI5LCJzaXplX2JlaGF2aW9yIjowLCJ3aWR0aCI6NzAwfQ== -->
+<p><img src="data:image/png;base64,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" /></p>
+<!-- rnb-plot-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="t-test" class="section level1">
+<h1>T-Test</h1>
+<p>Finally we’ll test the hypothesis that our groups have different means using a <em>T-Test</em>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2VsbF90cmVhdG1lbnRfZGF0YSAlPiVcbiAgdC50ZXN0KE1ldGFib2xpY19BY3Rpdml0eX5UcmVhdG1lbnQsZGF0YT0uKVxuYGBgIn0= -->
+<pre class="r"><code>cell_treatment_data %&gt;%
+  t.test(Metabolic_Activity~Treatment,data=.)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBNZXRhYm9saWNfQWN0aXZpdHkgYnkgVHJlYXRtZW50XG50ID0gMi44ODg1LCBkZiA9IDIuNzY1LCBwLXZhbHVlID0gMC4wNjk1OFxuYWx0ZXJuYXRpdmUgaHlwb3RoZXNpczogdHJ1ZSBkaWZmZXJlbmNlIGluIG1lYW5zIGlzIG5vdCBlcXVhbCB0byAwXG45NSBwZXJjZW50IGNvbmZpZGVuY2UgaW50ZXJ2YWw6XG4gLTM0NS41NjkzIDQ3NTYuOTAyN1xuc2FtcGxlIGVzdGltYXRlczpcbm1lYW4gaW4gZ3JvdXAgQ29udHJvbCBtZWFuIGluIGdyb3VwIFRyZWF0ZWQgXG4gICAgICAgICAgICAgMTQ1NzQuMDAgICAgICAgICAgICAgIDEyMzY4LjMzIFxuIn0= -->
 <pre><code>
     Welch Two Sample t-test
 
-data:  Metabolic_Activity by Group
+data:  Metabolic_Activity by Treatment
 t = 2.8885, df = 2.765, p-value = 0.06958
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
@@ -1839,10 +1902,11 @@ mean in group Control mean in group Treated
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Generally, folks are interested in whether the p-value is below a significance threshold. However, R tells us some other potentially useful stuff, not least a 95% confidence bracket on the difference in means letting us say “We’re pretty sure the difference between the control and the treated groups is between x and y.”.</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4ZXJjaXNlIDEgLSBDaGFydCBhbmQgVC1UZXN0Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KIyBJbnRyb2R1Y3Rpb24NCg0KIyBMaWJyYXJpZXMNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQojIEltcG9ydCBkYXRhDQoNCmBgYHtyfQ0KY2VsbF90cmVhdG1lbnRfZGF0YTwtcmVhZF9jc3YoImNlbGxfdHJlYXRtZW50X2RhdGEuY3N2IikNCmBgYA0KDQojIFBsb3QgZGF0YQ0KDQpgYGB7cn0NCmNlbGxfdHJlYXRtZW50X2RhdGEgJT4lDQogIGdncGxvdChhZXMoeD1Hcm91cCx5PU1ldGFib2xpY19BY3Rpdml0eSkpKw0KICBzdGF0X3N1bW1hcnkoZnVuLmRhdGE9Im1lYW5fc2UiLGNvbG91cj0iQmx1ZSIpKw0KICBnZW9tX3BvaW50KCkNCiAgDQpgYGANCg0KIyBULVRlc3QNCg0KYGBge3J9DQpjZWxsX3RyZWF0bWVudF9kYXRhICU+JQ0KICB0LnRlc3QoTWV0YWJvbGljX0FjdGl2aXR5fkdyb3VwLGRhdGE9LikNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4ZXJjaXNlIDEgLSBDaGFydCBhbmQgVC1UZXN0Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KIyBJbnRyb2R1Y3Rpb24NCg0KSW4gdGhpcyBleGNlcmNpc2Ugd2Ugd2lsbCBsb2FkIHNvbWUgZXhhbXBsZSBkYXRhLCBwbG90IGl0IG9uIHNjcmVlYW4gYW5kIHRoZW4gZG8gYSBULVRlc3QuDQoNCiMgTGlicmFyaWVzDQoNCkxpYnJhcmllcyBhcmUgdGhlIHBhY2thZ2VzIG9mIGNvZGUgKHdyaXR0ZW4gYnkgb3RoZXIgcGVvcGxlKSB0aGF0IHdlIHdpbGwgdGVsbCB0aGUgY29tcHV0ZXIgdG8gZXhlY3V0ZSBpbiBvcmRlciB0byBnZXQgb3VyIGpvYnMgZG9uZS4NCg0KYGBge3J9DQojaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCiMgSW1wb3J0IGRhdGENCg0KT3VyIGRhdGEgaXMgaW4gdGhlIGZpbGUgImNlbGxfdHJlYXRtZW50X2RhdGEuY3N2Ii4gWW91IGNhbiBvcGVuIHRoaXMgdXAgaW4gYSBzcHJlYWRzaGVldCwgbGlrZSBFeGNlbCBvciBHb29nbGUgU2hlZXRzLCB0byBoYXZlIGEgbG9vayBhdCBpdC4gUHV0IGEgY29weSBvZiB0aGUgZmlsZSBpbiB5b3VyIFIgcHJvamVjdCBmb2xkZXIuDQoNCmBgYHtyfQ0KY2VsbF90cmVhdG1lbnRfZGF0YTwtcmVhZF9jc3YoImNlbGxfdHJlYXRtZW50X2RhdGEuY3N2IikNCmBgYA0KDQpSIChpbiB0aGlzIGNhc2UgdXNpbmcgdGhlICpyZWFkciogcGFja2FnZSkgaGFzIGJyb3VnaHQgb3VyIGRhdGEgaW50byB0aGUgKkVudmlyb25tZW50KiAtIHRvcCByaWdodCBvZiB0aGUgc2NyZWVuIC0gYXMgYSAqdmFyaWFibGUqLiBJdCBoYXMgbWFkZSBhIGdvb2QgZ3Vlc3MgYXQgd2hhdCBzb3J0IG9mIGluZm9ybWF0aW9uIGlzIGluIGVhY2ggY29sdW1uLg0KDQojIFZpZXcgZGF0YQ0KDQpUaGUgbmV4dCBjb21tYW5kIHNob3dzIG91ciBkYXRhIG9uIHNjcmVlbi4NCg0KYGBge3J9DQpoZWFkKGNlbGxfdHJlYXRtZW50X2RhdGEpDQpgYGANCg0KWW91IGNhbiBhbHNvIGRvdWJsZS1jbGljayBvbiB0aGUgKmNlbGxfdHJlYXRtZW50X2RhdGEqIHZhcmlhYmxlIGluIHRoZSAqRW52aXJvbm1lbnQqIHRvIGJyaW5nIGl0IHVwIGFzIGEgdGFiLg0KDQojIEZpbHRlciBkYXRhDQoNCk5vdywganVzdCBmb3IgdGhlIGV4Y2VyY2lzZSwgd2UncmUgZ29pbmcgdG8gbG9vayBhdCBhIHN1YnNldCBvZiB0aGUgZGF0YS4gV2UgdGFrZSBvdXIgKmNlbGxfdHJlYXRtZW50X2RhdGEqIHZhcmlhYmxlIGFuZCB1c2UgdGhlICptYWdyaXR0ciogZnVuY3Rpb24gKiU+JSogdG8gc2VuZCBpdCB0aHJvdWdoIGEgZmlsdGVyIHRoYXQgc2VwZXJhdGVzIG91dCB0aGUgY29udHJvbCBkYXRhLg0KDQpgYGB7cn0NCmNlbGxfdHJlYXRtZW50X2RhdGEgJT4lIGZpbHRlcihUcmVhdG1lbnQ9PSJDb250cm9sIikNCmBgYA0KDQojIENhbGN1bGF0aW9ucw0KDQpIYXZpbmcgZ290IG91ciBkYXRhIGxvYWRlZCBhbmQgbG9va2VkIGF0IGl0LCB3ZSBtaWdodCBub3cgd2FudCB0byBkbyBzb21lIGNhbGN1bGF0aW9ucyB0byBzdW1tYXJpc2UgaXQuIFdlJ2xsIHVzZSB0aGUgKiU+JSogdG8gc2VuZCB0aGUgKmNlbGxfdHJlYXRtZW50X2RhdGEqIHZhcmlhYmxlIHRocm91Z2ggYSBjb3VwbGUgb2YgcHJvY2Vzc2VzLiBUaGUgZmlyc3QgaXMgdG8gdXNlIHRoZSAiVHJlYXRtZW50IiBjb2x1bW4gdG8gc3BsaXQgdGhlIGRhdGEgaW50byBncm91cHMgb24gd2hpY2ggd2UgdGhlbiBwZXJmb3JtIHN1bW1hcnkgY2FsY3VsYXRpb25zIHVzaW5nICpzdW1tYXJpc2UqLg0KDQpgYGB7cn0NCmNlbGxfdHJlYXRtZW50X2RhdGEgJT4lIA0KICBncm91cF9ieShUcmVhdG1lbnQpICU+JQ0KICBzdW1tYXJpc2UoTWF4aW11bV9BY3Rpdml0eT1tYXgoTWV0YWJvbGljX0FjdGl2aXR5KSxNaW5pbXVtX0FjdGl2aXR5PW1pbihNZXRhYm9saWNfQWN0aXZpdHkpKQ0KDQpgYGANCg0KIyBQbG90IGRhdGENCg0KTm93IHdlIHZpc3VhbGlzZSB1c2luZyAqZ2dwbG90Ki4gSGVyZSwgd2Ugc3BlY2lmeSB3aGljaCBjb2x1bW4gZ29lcyBvbiB3aGljaCBheGlzLCB0aGVuIHdlIHN0YXRlIHdoYXQga2luZCBvZiBjaGFydCB3ZSB3YW50LiAqc3RhdF9zdW1tYXJ5KiBpcyBhIHR5cGUgb2YgY2hhcnQgdGhhdCBzaG93cyBzdW1tYXJ5IGluZm9ybWF0aW9uIChpbiB0aGlzIGNhc2UgbWVhbiBhbmQgc3RhbmRhcmQgZXJyb3IpLCByYXRoZXIgdGhhbiBwbG90dGluZyBldmVyeSBzaW5nbGUgcG9pbnQuDQoNCmBgYHtyfQ0KY2VsbF90cmVhdG1lbnRfZGF0YSAlPiUNCiAgZ2dwbG90KGFlcyh4PVRyZWF0bWVudCx5PU1ldGFib2xpY19BY3Rpdml0eSkpKw0KICBzdGF0X3N1bW1hcnkoKQ0KYGBgDQoNCiMgVC1UZXN0DQoNCkZpbmFsbHkgd2UnbGwgdGVzdCB0aGUgaHlwb3RoZXNpcyB0aGF0IG91ciBncm91cHMgaGF2ZSBkaWZmZXJlbnQgbWVhbnMgdXNpbmcgYSAqVC1UZXN0Ki4NCg0KYGBge3J9DQpjZWxsX3RyZWF0bWVudF9kYXRhICU+JQ0KICB0LnRlc3QoTWV0YWJvbGljX0FjdGl2aXR5flRyZWF0bWVudCxkYXRhPS4pDQpgYGANCg0KR2VuZXJhbGx5LCBmb2xrcyBhcmUgaW50ZXJlc3RlZCBpbiB3aGV0aGVyIHRoZSBwLXZhbHVlIGlzIGJlbG93IGEgc2lnbmlmaWNhbmNlIHRocmVzaG9sZC4gSG93ZXZlciwgUiB0ZWxscyB1cyBzb21lIG90aGVyIHBvdGVudGlhbGx5IHVzZWZ1bCBzdHVmZiwgbm90IGxlYXN0IGEgOTUlIGNvbmZpZGVuY2UgYnJhY2tldCBvbiB0aGUgZGlmZmVyZW5jZSBpbiBtZWFucyBsZXR0aW5nIHVzIHNheSAiV2UncmUgcHJldHR5IHN1cmUgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiB0aGUgY29udHJvbCBhbmQgdGhlIHRyZWF0ZWQgZ3JvdXBzIGlzIGJldHdlZW4geCBhbmQgeS4iLg0K</div>
 
 
 
