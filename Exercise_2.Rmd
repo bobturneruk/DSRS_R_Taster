@@ -1,9 +1,17 @@
 ---
-title: "Excercise 2"
+title: "Exercise 2"
 output: html_notebook
 ---
 
+# Introduction
+
+In this exercise, we are going to run through calibrating a protein assay. If you haven't come across these before, you usually get a kit in which there is a reagent that changes colour in response to protein concentration. This colour change is measured in the lab on a spectrophotometer. In order to know what value of colour (Optical Density, OD) corresponds to what protein concentration, we test a range of known protein concentrations and figure out the relationship between protein concentration and OD, allowing us to look up protein concentration from the OD.
+
+If you're interested in the practical side of this, have a look at the [Bradford Assay](https://en.wikipedia.org/wiki/Bradford_protein_assay).
+
 # Libraries
+
+We need the *tidyverse* library.
 
 ```{r}
 library(tidyverse)
@@ -11,11 +19,20 @@ library(tidyverse)
 
 # Import Data
 
+Data is imported in the same way as for exercise 1.
+
 ```{r}
 assay_calibration_data<-read_csv("assay_calibration_data.csv")
 ```
 
+```{r}
+head(assay_calibration_data)
+```
+
+
 # Plot Data
+
+Here, we plot protein concentration (the protein_ug_ml column) against optical density (the OD_600 column). *geom_point* shows us the raw data and *geom_smooth* a linear relationship between the two, and a 95% confidence interval in that relationship i.e. our best guess at the line and an idea of the range in which we expect the line to be (see Google for formal definitions).
 
 ```{r}
 assay_calibration_data %>%
@@ -26,15 +43,27 @@ assay_calibration_data %>%
 
 # Obtain Fit Parameters
 
+Unfortunately, *ggplot* does not output the "fit parameters" of the line, which is defined as: 
+
+$$y=ax+b$$
+
+Where *y* is OD and *x* is protein concentration. We need *a* (the gradient) and *b* (the intercept) in order to work out what concentration corresponds to the OD that we will measure for a sample with an unknown concentration using the rearranged equation:
+
+$$x=(y-c)/a$$
+To get this we use the *lm* function, specifying the relationship we are interested in and the data we want to use.
+
 ```{r}
 lm(OD_600~protein_ug_ml,assay_calibration_data)
 ```
 
+In terms of our equation, the first number, the intercept, is *b* and the second number, labelled protein_ug_ml, is *a*.
+
 # Determine Protein Concentration from OD
 
-Let's say we read an OD of 0.568.
+Let's say we read an OD of 0.568 - what protein concentration does this correspond to? We substitute into our second equation and...
 
 ```{r}
 (0.568-0.1703469)/0.0006077
 ```
 
+...this is our estimate of the concentration in ug/ml.

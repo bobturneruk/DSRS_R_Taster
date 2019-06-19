@@ -75,3 +75,5 @@ cell_treatment_data %>%
 ```
 
 Generally, folks are interested in whether the p-value is below a significance threshold. However, R tells us some other potentially useful stuff, not least a 95% confidence bracket on the difference in means letting us say "We're pretty sure the difference between the control and the treated groups is between x and y.".
+
+NB the proper definition of confidence interval is something to Google, if you want to!
