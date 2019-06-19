@@ -1,0 +1,40 @@
+---
+title: "Excercise 2"
+output: html_notebook
+---
+
+# Libraries
+
+```{r}
+library(tidyverse)
+```
+
+# Import Data
+
+```{r}
+assay_calibration_data<-read_csv("assay_calibration_data.csv")
+```
+
+# Plot Data
+
+```{r}
+assay_calibration_data %>%
+  ggplot(aes(x=protein_ug_ml,y=OD_600))+
+  geom_point()+
+  geom_smooth(method="lm")
+```
+
+# Obtain Fit Parameters
+
+```{r}
+lm(OD_600~protein_ug_ml,assay_calibration_data)
+```
+
+# Determine Protein Concentration from OD
+
+Let's say we read an OD of 0.568.
+
+```{r}
+(0.568-0.1703469)/0.0006077
+```
+

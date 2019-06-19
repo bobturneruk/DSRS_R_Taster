@@ -28,3 +28,19 @@ cell_treatment_data %<>% mutate(Metabolic_Activity=round(Metabolic_Activity))
 write_csv(cell_treatment_data,"cell_treatment_data.csv")
 ```
 
+# Exercise 2
+
+```{r}
+set.seed(1)
+gradient=0.0006
+intercept=0.18
+
+protein_ug_ml<-c(0,250,500,1000,1500,2000)
+error<-rnorm(length(protein_ug_ml),sd=0.1)
+OD_600<-gradient*protein_ug_ml+intercept+error
+
+assay_calibration_data<-data.frame(protein_ug_ml,OD_600)
+
+write_csv(assay_calibration_data,"assay_calibration_data.csv")
+```
+
