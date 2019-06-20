@@ -65,6 +65,27 @@ cell_treatment_data %>%
   stat_summary()
 ```
 
+Maybe we'd prefer a more familiar looking plot, with some different aesthetics, and some labels. Feel free to mess around with these!
+
+```{r}
+cell_treatment_data %>%
+  ggplot(aes(x=Treatment,y=Metabolic_Activity, fill=Treatment))+
+  stat_summary(geom="bar")+
+  stat_summary(geom="errorbar", width=0.5)+
+  geom_jitter(width=0.1,height=0)+
+  labs(title="Metabolic activity of my cells", subtitle="June 2019")+
+  xlab("Treatment Group")+
+  ylab("Metabolic Activity (Arbitrary Units)")+
+  theme_gray(13)
+```
+
+You can save a plot like this:
+
+```{r}
+ggsave("ex1_plot.png")
+```
+
+
 # T-Test
 
 Finally we'll test the hypothesis that our groups have different means using a *T-Test*.
