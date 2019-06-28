@@ -8,6 +8,14 @@ date: June 2019
 
 ![Say R](Say_R.PNG)
 
+Plan for the session
+========================================================
+
+- Introduction (me talking)
+- "Hello world!" example
+- Exercise 1 - Charts and T-Tests
+- Exercise 2 - Linear Regression
+
 Who's done some coding?
 ========================================================
 
