@@ -16,8 +16,14 @@ Plan for the session
 - Exercise 1 - Charts and T-Tests
 - Exercise 2 - Linear Regression
 
-Who's done some coding?
+Let's get to know each other...
 ========================================================
+
+- Who's done some coding? Which languages? Any R?
+- Who's used a graphing / plotting / statistics package / spreadsheet? Which ones?
+- Who's had formal training in coding? in statistics?
+
+These are really just notes for me!
 
 What the flip is R?
 ========================================================
@@ -76,15 +82,9 @@ Online Tools
 What we're doing next...
 ========================================================
 
-Exercise 1
-- Reading data
-- Plotting charts
-- Statistical tests
-
-***
-
-Exercise 2
-- Linear regression
+- "Hello world!" example
+- Exercise 1 - Charts and T-Tests
+- Exercise 2 - Linear Regression
 
 T-Test
 ========================================================
