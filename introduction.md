@@ -1,7 +1,7 @@
 R Taster
 ========================================================
 autosize: true
-author: Robert (Bob) Turner
+author: Robert (Bob) Turner, Katherine (Kittie) Ansboro
 date: June 2019
 
 ***
