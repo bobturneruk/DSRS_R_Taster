@@ -1,12 +1,11 @@
 R Taster
 ========================================================
-autosize: true
-author: Robert (Bob) Turner, Katherine (Kittie) Ansboro
-date: June 2019
-
-***
 
 ![Say R](Say_R.PNG)
+
+Robert (Bob) Turner, Katherine (Kittie) Ansboro
+
+June 2019
 
 Plan for the session
 ========================================================
